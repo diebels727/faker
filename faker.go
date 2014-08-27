@@ -65,17 +65,3 @@ func (f *Faker) Username() string {
   return f.FirstName()+f.JoinCharacter()+f.LastName()
 }
 
-// func init() {
-//   *first_names = (make([]string,0))
-//   // first_names_file_name := "data/name/first_names"
-//   // file,err := os.Open(first_names_file_name)
-//   // if err != nil {
-//   //   panic("Error opening file")
-//   // }
-//   // reader := readline.Readline{File: file}
-//   // defer file.Close()
-//   //
-//   // reader.Map(firstNamesReader)
-//   fmt.Println(first_names)
-// }
-
