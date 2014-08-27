@@ -1,10 +1,10 @@
 package faker
 
 import (
-         // "fmt"
          "github.com/diebels727/readline"
          "os"
          "math/rand"
+         "time"
         )
 type Faker struct {
   FirstNames []string
@@ -15,6 +15,8 @@ type Faker struct {
 }
 
 func New() (*Faker) {
+  rand.Seed( time.Now().UTC().UnixNano())
+
   f := Faker{firstNamesFile: "data/name/first_names",lastNamesFile: "data/name/last_names"}
   first_names_file,err := os.Open(f.firstNamesFile)
   if err != nil {
