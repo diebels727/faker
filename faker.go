@@ -11,13 +11,15 @@ type Faker struct {
   firstNamesFile string
   LastNames []string
   lastNamesFile string
+  UserNames []string
+  userNamesFiles string
   JoinCharacters []string
 }
 
 func New() (*Faker) {
   rand.Seed( time.Now().UTC().UnixNano())
 
-  f := Faker{firstNamesFile: "data/name/first_names",lastNamesFile: "data/name/last_names"}
+  f := Faker{firstNamesFile: "data/name/first_names",lastNamesFile: "data/name/last_names",userNamesFile:"data/username/usernames"}
   first_names_file,err := os.Open(f.firstNamesFile)
   if err != nil {
     panic("Error opening first names file")
@@ -36,7 +38,20 @@ func New() (*Faker) {
 
   f.JoinCharacters = []string{"",".","_","-"}
 
+  usernames_file,err := os.Open(f.userNamesFile)
+  if err != nil {
+    panic("Error opening usernames file")
+  }
+  reader = readline.Readline{File: usernames_file}
+  defer usernames_file.Close()
+  reader.Map(f.userNamesReader)
+
   return &f
+}
+
+func (f *Faker) userNamesReader(str string) {
+  f.UserNames = append(f.UserNames,str)
+  return
 }
 
 func (f *Faker) firstNamesReader(str string) {
@@ -62,6 +77,6 @@ func (f *Faker) JoinCharacter() string {
 }
 
 func (f *Faker) Username() string {
-  return f.FirstName()+f.JoinCharacter()+f.LastName()
+  return f.UserNames[rand.Intn(len(f.UserNames))]
 }
 
