@@ -12,7 +12,7 @@ type Faker struct {
   LastNames []string
   lastNamesFile string
   UserNames []string
-  userNamesFiles string
+  userNamesFile string
   JoinCharacters []string
 }
 
